@@ -1,0 +1,50 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Текст вакансии</title>
+    <style>
+        #output-field {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap; /* Ensures multiline text is displayed correctly */
+        }
+    </style>
+</head>
+<body>
+    <h1>Ссылка на вакансию</h1>
+    <form id="input-form">
+        <textarea id="input-text" name="input-text" rows="4" cols="50"></textarea><br>
+        <button type="button" onclick="sendInput()">Поехали</button>
+    </form>
+    <h2>Результат</h2>
+    <div id="output-field"></div>
+    <button type="button" onclick="copyToClipboard()">Скопировать</button>
+
+    <script>
+        async function sendInput() {
+            const inputText = document.getElementById('input-text').value;
+            const response = await fetch('/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: inputText })
+            });
+            const data = await response.json();
+            document.getElementById('output-field').innerHTML = data.markdown;
+        }
+
+        function copyToClipboard() {
+            const outputText = document.getElementById('output-field').innerText;
+            navigator.clipboard.writeText(outputText).then(() => {
+                alert("Текст скопирован");
+            });
+        }
+    </script>
+</body>
+</html>
