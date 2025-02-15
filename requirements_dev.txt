@@ -1,0 +1,4 @@
+groq
+fastapi[standard]
+httpx
+markdownify

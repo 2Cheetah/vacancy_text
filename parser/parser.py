@@ -85,7 +85,7 @@ def prepare_data(groq_client, text, url):
 def parse_title(data):
     try:
         vacancy_name = data["vacancyView"]["name"]
-        return f"*Вакансия: {vacancy_name}*"
+        return f"<b>Вакансия: {vacancy_name}</b>"
     except KeyError:
         return ""
 
@@ -93,7 +93,7 @@ def parse_title(data):
 def parce_company_name(data):
     try:
         company_name = data["vacancyView"]["company"]["name"]
-        return f"*Компания:* {company_name}"
+        return f"<b>Компания:</b> {company_name}"
     except KeyError:
         return ""
 
@@ -101,7 +101,7 @@ def parce_company_name(data):
 def parse_location(data):
     try:
         display_name = data["vacancyView"]["address"]["displayName"]
-        return f"*Локация:* {display_name}"
+        return f"<b>Локация:</b> {display_name}"
     except KeyError:
         return ""
 
@@ -109,9 +109,9 @@ def parse_location(data):
 def parse_compensation(data):
     try:
         compensation_from = data["vacancyView"]["compensation"]["from"]
-        compensation_string = f"*ЗП:* от {compensation_from}"
+        compensation_string = f"<b>ЗП:</b> от {compensation_from}"
     except KeyError:
-        return "*ЗП:* не указана"
+        return "<b>ЗП:</b> не указана"
 
     try:
         compensation_to = data["vacancyView"]["compensation"]["to"]
@@ -144,7 +144,7 @@ def parse_description(groq_client, data):
 
 
 def parse_footer(url: str) -> str:
-    footer = f"*Откликнуться:* f{url}"
+    footer = f"<b>Откликнуться:</b> {url}"
     return footer
     
 
