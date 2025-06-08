@@ -16,7 +16,7 @@ class GroqClient:
                         "content": prompt,
                     }
                 ],
-                model="llama3-8b-8192",
+                model="deepseek-r1-distill-llama-70b",
             )
             answer = chat_completion.choices[0].message.content
             return answer
